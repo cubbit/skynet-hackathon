@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "rclone-backup": {
+      "command": "/Users/carlo/src/work/skynet-hackathon/mcp-backup-server/.venv/bin/python3",
+      "args": ["/Users/carlo/src/work/skynet-hackathon/mcp-backup-server/server.py"],
+      "env": {
+        "BACKUP_DB_PATH": "~/.mcp-backup/backups.db"
+      }
+    }
+  }
+}
