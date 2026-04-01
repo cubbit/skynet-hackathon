@@ -1,4 +1,5 @@
-# skynet-hackathon — MCP Rclone Backup Server
+# eRcubbit
+## MCP Rclone Backup Server
 
 An [MCP](https://modelcontextprotocol.io) server that wraps [rclone](https://rclone.org) to provide backup management tools to Claude. Back up local paths or remote targets to S3 (or any rclone-supported remote), schedule recurring backups, and restore — all by talking to Claude naturally.
 
