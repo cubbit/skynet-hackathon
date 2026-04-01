@@ -1,0 +1,55 @@
+{
+    "$schema": "https://opencode.ai/config.json",
+    "provider": {
+        "cubbit": {
+            "npm": "@ai-sdk/openai-compatible",
+            "name": "Cubbit",
+            "options": {
+                "baseURL": "https://mimir.cubbit.dev/v1",
+                "apiKey": "{file:mimir-key}"
+            },
+            "models": {
+                "mimir": {
+                    "name": "Mimir",
+                    "limit": {
+                        "context": 131072,
+                        "output": 16384
+                    }
+                }
+            }
+        }
+    },
+    "model": "cubbit/mimir",
+    "plugin": [
+        "oh-my-opencode-slim"
+    ],
+    "permission": {
+        "bash": "ask",
+        "edit": "ask",
+        "external_directory": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow",
+        "lsp": "ask",
+        "patch": "ask",
+        "question": "allow",
+        "read": "allow",
+        "skill": "ask",
+        "todoread": "allow",
+        "todowrite": "allow",
+        "webfetch": "allow",
+        "write": "ask"
+    },
+    "share": "disabled",
+    "disabled_providers": [
+        "opencode"
+    ],
+    "mcp": {
+      "jira": {
+        "enabled": true,
+        "type": "remote",
+        "url": "https://mcp.atlassian.com/v1/mcp",
+        "oauth": {}
+      }
+    }
+}
