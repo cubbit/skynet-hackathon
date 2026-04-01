@@ -33,17 +33,29 @@ sudo apt install rclone   # or: curl https://rclone.org/install.sh | sudo bash
 
 ### 3. Configure an rclone remote
 
-At minimum, configure the S3 (or SSH/SFTP) remote you want to back up to:
+You can skip this step and let Claude configure remotes for you (see [Example usage](#example-usage) below). Or configure manually:
 
 ```bash
 rclone config
 ```
 
-Example for S3:
+**Cubbit DS3** (S3-compatible, geo-distributed):
+```
+n  → New remote
+name: cubbit
+storage: s3
+provider: Cubbit
+access_key_id: YOUR_CUBBIT_KEY       ← from console.cubbit.eu
+secret_access_key: YOUR_CUBBIT_SECRET
+region: eu-west-1
+endpoint:                            ← leave blank, rclone sets s3.cubbit.eu automatically
+```
+
+**AWS S3:**
 ```
 n  → New remote
 name: s3
-storage: s3 (Amazon S3)
+storage: s3
 provider: AWS
 env_auth: false
 access_key_id: YOUR_KEY
@@ -53,8 +65,8 @@ region: eu-west-1
 
 Verify with:
 ```bash
-rclone listremotes        # should list  s3:
-rclone lsd s3:my-bucket   # should list bucket contents
+rclone listremotes           # should list  cubbit:  or  s3:
+rclone lsd cubbit:my-bucket  # should list bucket contents
 ```
 
 ## Installation
@@ -140,6 +152,30 @@ A full walkthrough from zero to scheduled backup.
 ---
 
 ### Step 1 — Configure a remote
+
+#### Option A: Cubbit DS3 (recommended)
+
+[Cubbit DS3](https://www.cubbit.io) is a geo-distributed, S3-compatible object storage. rclone has native support for it via `provider=Cubbit`.
+
+> "Set up a Cubbit DS3 remote called `cubbit`. Access key is `...`, secret is `...`."
+
+```
+Claude calls: configure_s3_remote(
+  name="cubbit",
+  access_key_id="YOUR_CUBBIT_ACCESS_KEY",
+  secret_access_key="YOUR_CUBBIT_SECRET_KEY",
+  region="eu-west-1",
+  provider="Cubbit"
+)
+
+→ { "remote": "cubbit", "type": "s3", "provider": "Cubbit", "status": "configured" }
+```
+
+Credentials are generated from the [Cubbit Web Console](https://console.cubbit.eu). The endpoint `s3.cubbit.eu` is set automatically by rclone when `provider=Cubbit` is used. For custom tenants the endpoint is `s3.<tenant>.cubbit.eu` — pass it explicitly via the `RCLONE_CONFIG` env var or a pre-written config file.
+
+Then use `cubbit:my-bucket/backups` as the target in any backup command.
+
+#### Option B: AWS S3
 
 > "Set up an S3 remote called `s3`. Access key is `AKIAIOSFODNN7EXAMPLE`, secret is `wJalrXUtnFEMI/K7MDENG`, region `eu-west-1`."
 
