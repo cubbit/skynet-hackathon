@@ -1,0 +1,37 @@
+{
+  "dxt_version": "0.1",
+  "name": "cubbit-mcp",
+  "display_name": "Cubbit Backup",
+  "version": "0.1.0",
+  "description": "Back up files to Cubbit DS3 (and any rclone-supported storage) — right from Claude.",
+  "long_description": "cubbit-mcp is a Model Context Protocol server that wraps rclone to give Claude full backup capabilities: configure Cubbit DS3 credentials, run on-demand backups, schedule recurring jobs, and restore files — all through natural conversation.",
+  "author": {
+    "name": "Cubbit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cubbit/ercubbit"
+  },
+  "license": "MIT",
+  "keywords": ["backup", "rclone", "cubbit", "s3", "storage"],
+  "server": {
+    "type": "stdio",
+    "command": "${__dirname}/cubbit-mcp",
+    "args": []
+  },
+  "tools": [
+    { "name": "cubbit_setup",        "description": "Configure Cubbit credentials and verify connection" },
+    { "name": "cubbit_setup_status", "description": "Check rclone installation and Cubbit config" },
+    { "name": "cubbit_doctor",       "description": "Full diagnostic: rclone, config, connectivity" },
+    { "name": "backup_path",         "description": "Back up a path to Cubbit or any rclone remote" },
+    { "name": "list_backups",        "description": "List completed backups" },
+    { "name": "preview_restore",     "description": "Preview files in a backup before restoring" },
+    { "name": "restore_backup",      "description": "Restore a backup to a local path" },
+    { "name": "schedule_backup",     "description": "Schedule a recurring backup with a cron expression" },
+    { "name": "list_schedules",      "description": "List active backup schedules" },
+    { "name": "cancel_schedule",     "description": "Cancel a scheduled backup" },
+    { "name": "show_remote",         "description": "Show rclone remote config (secrets redacted)" },
+    { "name": "delete_remote",       "description": "Remove an rclone remote" },
+    { "name": "configure_sftp_remote", "description": "Configure an SSH/SFTP remote" }
+  ]
+}
